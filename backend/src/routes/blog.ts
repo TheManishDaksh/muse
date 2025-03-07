@@ -48,14 +48,14 @@ blogRouter.post('/',async (c)=>{
         data : {
           title: body.title,
           content: body.content,
-          authorId :String(authorId)
+          authorId :authorId
         }
       })
       const blogId = blog.id
-      return c.text(blogId)
-    }catch(e){
+      return c.json({blogId})
+    }catch(err){
       c.status(403)
-      return c.json("blog can not be created")
+      return c.json({Error : err })
     }   
   })
   
@@ -88,24 +88,13 @@ blogRouter.post('/',async (c)=>{
   }
   })
   
-  blogRouter.get('/bulk',(c)=>{
+  blogRouter.get('/bulk', async(c)=>{
     const prisma = new PrismaClient({
       datasourceUrl : c.env.DATABASE_URL
     }).$extends(withAccelerate());
 
    try{
-    const blogs = prisma.post.findMany({
-      select : {
-        title : true,
-        content : true,
-        id : true,
-        author : {
-          select :{
-            name : true
-          }
-        }
-      }
-    })
+    const blogs = await prisma.post.findMany()
     return c.json({
       blogs
     })
