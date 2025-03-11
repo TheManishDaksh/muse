@@ -3,7 +3,7 @@ import DrawIcon from '@mui/icons-material/Draw';
 import EastIcon from '@mui/icons-material/East';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { motion } from "framer-motion"
-import { Navbar } from '../components'
+import { Footer, Navbar } from '../components'
 
 function HomePage() {
   return (
@@ -20,7 +20,7 @@ function HomePage() {
         <div className='py-10 md:py-20'>
         <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
         transition={{ duration: 3 }}>
           <div className='flex flex-col justify-center items-center'>
             <div className='text-violet-100 border-2 border-violet-500 flex justify-center text-center  rounded-full w-70 bg-gradient-to-r from-red-500 to-blue-500 py-1 md:py-2'>
@@ -49,17 +49,31 @@ function HomePage() {
             </div>
             </div>
             <div className=' flex flex-col  justify-center items-center bg-black w-full h-full'>
-            <div><p className='font-bold text-3xl md:text-4xl bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent'>Create Your Story</p></div>
-            <div className='flex flex-col md:flex-row p-4 gap-4 py-5'>
-            <div><img src="/hero-img-01.jpg" alt="travelling" /></div>
-            <div><img src="/hero-img-02.jpg" alt="professinal" /></div>
-            <div><img src="/hero-img-03.jpg" alt="vacation" /></div>
-            </div>
+            <div><p className='font-bold text-3xl md:text-4xl bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent py-10'>Create Your Story</p></div>
+            <motion.div
+            initial = {{opacity:0}}
+            whileInView={{opacity:1}}
+            transition={{duration:3}} 
+            className='flex flex-col md:flex-row gap-4 py-5'>
+            <div >
+              <img className='hover:scale-105 transition-all  hover:duration-300 rounded-full shadow shadow-slate-500 hover:shadow-2xl' 
+              src="/hero-img-01.jpg" alt="travelling" />
+              </div>
+            <div>
+              <img className='hover:scale-105 transition-all  hover:duration-300 rounded-full shadow shadow-slate-500 hover:shadow-2xl'
+              src="/hero-img-02.jpg" alt="professinal" />
+              </div>
+            <div>
+              <img className='hover:scale-105 transition-all  hover:duration-300 rounded-full shadow shadow-slate-500 hover:shadow-2xl'
+              src="/hero-img-03.jpg" alt="vacation" />
+              </div>
+            </motion.div>
           </div>
           </div>
           
         </motion.div>
         </div>
+        <Footer/>
     </div>
   )
 }

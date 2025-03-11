@@ -12,7 +12,7 @@ function Navbar() {
     >
       <div className="flex justify-between">
         <Link to={"/"}>
-          <div className="text-2xl font-bold cursor-pointer flex flex-row items-center ">
+          <div className="text-2xl font-bold cursor-pointer flex flex-row items-center hover:scale-105 transition-all hover:duration-200">
             <span className="text-blue-500 flex items-center"><DrawIcon/></span>
             <span className="bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent ">Muse</span>
             </div>
