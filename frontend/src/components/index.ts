@@ -1,2 +1,3 @@
 export { default as Navbar } from "./Navbar";
-export { default as Footer } from "./footer"
+export { default as Footer } from "./Footer";
+export { default as Input } from "./Input"
