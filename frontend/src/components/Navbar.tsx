@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import DrawIcon from '@mui/icons-material/Draw';
 
 function Navbar() {
   return (
@@ -11,7 +12,10 @@ function Navbar() {
     >
       <div className="flex justify-between">
         <Link to={"/"}>
-          <div className="text-2xl font-bold cursor-pointer">Muse</div>
+          <div className="text-2xl font-bold cursor-pointer flex flex-row items-center ">
+            <span className="text-blue-500 flex items-center"><DrawIcon/></span>
+            <span className="bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent ">Muse</span>
+            </div>
         </Link>
         <Link to={"/signup"}>
           <div>
