@@ -114,7 +114,7 @@ blogRouter.post('/',async (c)=>{
    try{
     const blogs = await prisma.post.findMany({
       where :{
-        authorId : authorId
+        authorId : authorId 
       }
     })
     return c.json({

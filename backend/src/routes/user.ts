@@ -34,8 +34,7 @@ userRouter.post('/signup', async(c)=>{
       password : body.password
     }
   })
-  console.log("suer createf");
-  
+  console.log("user createf");
   
   if(!user){
     c.status(401)

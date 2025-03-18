@@ -38,7 +38,8 @@ function HomePage() {
             <div className='text-blue-500 pb-4 pt-4 md:pt-0 flex items-center justify-center gap-2'>
               <span><AutoAwesomeIcon/></span>
               <span className='flex flex-col md:flex-row items-center justify-center'> 
-                <span>You have countless stories and</span>
+                <span>You have countless stories and </span>
+                &nbsp;
                 <span>memories let's share them</span>
               </span>
             </div>
