@@ -8,12 +8,12 @@ interface BlogCardProps {
   date: string;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({
+const BlogCard = ({
   title,
   description,
   author,
   date
-}) => {
+}:BlogCardProps) => {
   return (
     <Link to={'/blogs/:id'}>
       <div className="w-full overflow-hidden rounded-lg shadow-lg bg-white p-2">
