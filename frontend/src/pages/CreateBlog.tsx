@@ -1,11 +1,15 @@
 import React from 'react'
-import { Navbar } from '../components'
+import { Navbar } from '../components';
+import { motion } from 'motion/react';
 
 function CreateBlog() {
   return (
         <div className="w-full min-h-screen bg-black pb-12 px-4 sm:px-6 lg:px-8">
         <Navbar/>
-      <div className="max-w-3xl mx-auto py-4">
+      < motion.div initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+       className="max-w-3xl mx-auto py-4">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
           {/* Header */}
           <div className="bg-indigo-600 px-6 py-4">
@@ -72,7 +76,7 @@ function CreateBlog() {
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

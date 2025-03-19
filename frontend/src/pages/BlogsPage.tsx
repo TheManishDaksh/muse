@@ -18,7 +18,7 @@ function BlogsPage() {
              transition={{duration:0.5}}
         className='flex flex-col py-4'>
             <div className='text-sm text-slate-400 py-2 pb-8'>
-                <p>For You</p>
+                <p className='pb-2'>For You</p>
                 <hr />
             </div>
             <div className='flex flex-col justify-center gap-3'>
