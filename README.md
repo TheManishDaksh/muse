@@ -1,5 +1,5 @@
-# medium-blog
-<br/> A medium like blogging app
+# Muse
+<br/> A blogging app
 <br/> In case you want api of backend (https://backend.medium-writes.workers.dev)
 <br/> And routes are :--
 <br/> post - /api/v1/user/signup for user signup
