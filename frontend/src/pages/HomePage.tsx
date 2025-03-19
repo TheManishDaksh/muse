@@ -4,8 +4,14 @@ import EastIcon from '@mui/icons-material/East';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { motion } from "framer-motion"
 import { Footer, Navbar } from '../components'
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
+
+  const navigate = useNavigate()
+  function Createpost(){
+    navigate('/blogs')
+  }
   return (
     <div className='max-w-full h-full bg-black'
     style={{
@@ -39,13 +45,14 @@ function HomePage() {
               <span><AutoAwesomeIcon/></span>
               <span className='flex flex-col md:flex-row items-center justify-center'> 
                 <span>You have countless stories and </span>
-                &nbsp;
+                  &nbsp;
                 <span>memories let's share them</span>
               </span>
             </div>
             <div className='py-10'>
             <div className='bg-gradient-to-r from-red-500 to-blue-500 py-1 px-2 md:py-2 rounded-full border-2 border-violet-500 flex gap-2 font-bold cursor-pointer hover:scale-105 transition-all duration-300'>
-              <span><button className='cursor-pointer'> Start Creating now </button></span>
+              <span><button onClick={Createpost}
+               className='cursor-pointer'> Start Creating now </button></span>
               <span><EastIcon/></span>
             </div>
             </div>
