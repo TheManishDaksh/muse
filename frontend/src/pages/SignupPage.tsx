@@ -27,10 +27,12 @@ function SignupPage() {
         alert("invalid username or password")
       }
       const token = response.data.token
+      const userId = response.data.userId
       if(token){
         localStorage.setItem("token",token)
         console.log(token);
-        
+        localStorage.setItem("userId", userId)
+        console.log(userId);
         navigate('/blogs')
       }
     }catch(error:any){

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 function HomePage() {
 
   const navigate = useNavigate()
-  function Createpost(){
+  function readPost(){
     navigate('/blogs')
   }
   return (
@@ -51,8 +51,8 @@ function HomePage() {
             </div>
             <div className='py-10'>
             <div className='bg-gradient-to-r from-red-500 to-blue-500 py-1 px-2 md:py-2 rounded-full border-2 border-violet-500 flex gap-2 font-bold cursor-pointer hover:scale-105 transition-all duration-300'>
-              <span><button onClick={Createpost}
-               className='cursor-pointer'> Start Creating now </button></span>
+              <span><button onClick={readPost}
+               className='cursor-pointer'> Start Reading now </button></span>
               <span><EastIcon/></span>
             </div>
             </div>

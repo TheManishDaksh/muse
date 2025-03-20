@@ -1,8 +1,41 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import axios from 'axios';
 import { BlogCard, Navbar } from '../components'
 import { motion } from 'motion/react'
 
 function BlogsPage() {
+
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const token = localStorage.getItem("token")
+  interface Blog{
+    title: string;
+    content: string;
+    author: string;
+    date: string;
+}
+  useEffect( ()=>{
+          async function UserBlogs(){
+              try{
+                  const response:any = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/bulk`,
+                    {
+                      headers : {
+                        Authorization : token
+                      }
+                    }
+                  );
+                  console.log(response);
+                  
+                  if(!response){
+                      alert("blogs not found")
+                  }
+                  const data = response.data.blogs
+                  setBlogs(data)
+              }catch(error:any){
+                  alert(error.response.data.message)
+              }
+          }
+          UserBlogs();
+      },[])
   return (
     <div className='max-w-full min-h-screen bg-black'
     style={{
@@ -22,7 +55,12 @@ function BlogsPage() {
                 <hr />
             </div>
             <div className='flex flex-col justify-center gap-3'>
-                <BlogCard/>
+                 {blogs.map((blog)=> <BlogCard 
+                                title={blog.title}
+                                description={blog.content}
+                                author={blog.author}
+                                date={blog.date}
+                            />)}
             </div>
         </motion.div>
     </div>
