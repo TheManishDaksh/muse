@@ -99,6 +99,8 @@ blogRouter.post('/',async (c)=>{
       select : {
         title : true,
         content  : true,
+        authorId : true,
+        published : true,
         id : true,
         author : {
           select : {
