@@ -1,8 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../components';
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function CreateBlog() {
+
+  const [title, setTitle] = useState<string>("")
+  const [content, setContent] = useState<string>("")
+  const navigate = useNavigate()
+  const token = localStorage.getItem("token")
+
+  async function handleCreatePost(event : React.FormEvent){
+    event.preventDefault();
+    try{
+      console.log("key clicked");
+      
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog`,{
+        title,
+        content
+      },{
+        headers : {
+          Authorization : token
+        }
+      })
+      console.log("blog created");
+      
+      if(!response){
+        alert("blog can't created")
+      }
+      navigate(`/yourblogs`)
+    }catch(error:any){
+    alert(error?.response.data.message)
+  }
+}
   return (
         <div className="w-full min-h-screen bg-black pb-12 px-4 sm:px-6 lg:px-8">
         <Navbar/>
@@ -16,22 +47,25 @@ function CreateBlog() {
             <h1 className="text-xl font-bold text-white">Create New Blog Post</h1>
           </div>
           
-          <form className="p-6 space-y-6">
+          <form onSubmit={handleCreatePost}
+            className="p-6 space-y-6">
             {/* Title Input */}
             <div className="space-y-2">
               <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                 Title
               </label>
               <input 
+                value={title}
+                onChange={(e)=>setTitle(e.target.value)}
                 type="text" 
                 id="title"
                 name="title"
                 placeholder="Enter your blog title" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors text-black"
               />
             </div>
             
-            {/* featured Image */}
+            {/* featured Image
             <div className="space-y-2">
               <label htmlFor="featuredImage" className="block text-sm font-medium text-gray-700">
                 Featured Image
@@ -49,7 +83,7 @@ function CreateBlog() {
                   <input type="file" className="opacity-0" />
                 </label>
               </div>
-            </div>
+            </div> */}
             
             {/* content  */}
             <div className="space-y-2">
@@ -57,17 +91,20 @@ function CreateBlog() {
                 Content
               </label>
               <textarea 
+                value={content}
+                onChange={(e)=>setContent(e.target.value)}
                 id="content"
                 name="content"
                 rows={10}
                 placeholder="Write your blog content here..." 
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors text-black"
               ></textarea>
             </div>
             
             {/* Buttons */}
             <div className="flex items-center justify-end space-x-3 pt-4">
               <button
+                onClick={handleCreatePost}
                 type="submit"
                 className="px-6 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
               >

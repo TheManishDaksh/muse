@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 interface BlogCardProps {
   title: string;
   id : string;
+  authorId : string;
   description: string;
   author: {
     name : string;
@@ -13,14 +14,15 @@ interface BlogCardProps {
 
 const BlogCard = ({
   id,
+  authorId,
   title,
   description,
   author,
   date
 }:BlogCardProps) => {
   return (
-    <Link to={'/blogs/:id'}>
-      <div id={id} className="w-full overflow-hidden rounded-lg shadow-lg bg-white p-2 shadow-violet-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+    <Link to={`/blogs/${id} `}>
+      <div id={id} data-author-Id={authorId} className="w-full overflow-hidden rounded-lg shadow-lg bg-white p-2 shadow-violet-500 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
         <h2 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
           {title || "title"}
         </h2>

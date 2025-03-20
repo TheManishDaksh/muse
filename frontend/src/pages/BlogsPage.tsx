@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {toast} from "react-toastify"
 import axios from 'axios';
 import { BlogCard, Navbar, BlogSkeleton } from '../components'
 import { motion } from 'motion/react'
@@ -12,6 +13,7 @@ function BlogsPage() {
 
   interface Blog {
     id: string;
+    authorId : string;
     title: string;
     content: string;
     author: {
@@ -19,7 +21,17 @@ function BlogsPage() {
     }
     published: string;
   }
-
+   function showToast(){
+    toast.success("Blog loaded successfully!", {
+      position: "top-right",
+      autoClose: 3000, // Closes after 3 sec
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "dark",
+    });
+  }  
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -32,6 +44,7 @@ function BlogsPage() {
               try{
                 if(!token){
                   navigate('/signup')
+                  showToast()
                 }
                   const response:any = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/bulk`,
                     {
@@ -44,6 +57,8 @@ function BlogsPage() {
                   if(!response){
                       alert("blogs not found")
                   }
+                  console.log(response);
+                  
                   const data = response.data?.blogs
                   setBlogs(data)
               }catch(error:any){
@@ -74,6 +89,7 @@ function BlogsPage() {
                  {blogs.length > 0 ?( blogs.map((blog)=> <BlogCard
                                 key={blog.id} 
                                 id={blog.id}
+                                authorId={blog.authorId}
                                 title={blog.title}
                                 description={blog.content}
                                 author={{name : blog.author.name}}
