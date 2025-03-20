@@ -49,7 +49,7 @@ blogRouter.post('/',async (c)=>{
           title: body.title,
           content: body.content,
           authorId :authorId,
-          published : new Date().toISOString()
+          published : new Date().toISOString() 
         }
       })
       const blogId = blog.id
@@ -95,7 +95,18 @@ blogRouter.post('/',async (c)=>{
     }).$extends(withAccelerate());
 
    try{
-    const blogs = await prisma.post.findMany()
+    const blogs = await prisma.post.findMany({
+      select : {
+        title : true,
+        content  : true,
+        id : true,
+        author : {
+          select : {
+            name : true
+          }
+        }
+      }
+    })
     return c.json({
       blogs
     })
