@@ -40,8 +40,10 @@ userRouter.post('/signup', async(c)=>{
     c.status(401)
     return c.json({message : "account does not craeted successfully"})
   }
+  const userId = user.id
   const token = await sign( {id : user.id}, c.env.JWT_SECRET)
   return c.json({token})
+  return c.json({userId})
   }catch(err){
     c.status(403)
     return c.json({Error : err})
@@ -72,8 +74,10 @@ userRouter.post('/signin', async(c)=>{
       c.status(403)
       return c.json("user not found")
     }
+    const userId = user.id
     const token = await sign ({id: user.id}, c.env.JWT_SECRET)
     return c.json({token})
+    return c.json({userId})
   }catch(e){
     c.status(403)
     return c.json("user not found2")
