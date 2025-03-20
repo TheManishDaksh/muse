@@ -1,21 +1,38 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
-import { BlogCard, Navbar } from '../components'
+import { BlogCard, Navbar, BlogSkeleton } from '../components'
 import { motion } from 'motion/react'
+import { useNavigate } from 'react-router-dom';
 
 function BlogsPage() {
 
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const token = localStorage.getItem("token")
-  interface Blog{
+  const navigate = useNavigate()
+
+  interface Blog {
+    id: string;
     title: string;
     content: string;
-    author: string;
-    date: string;
-}
+    author: {
+      name : string
+    }
+    published: string;
+  }
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = String(date.getFullYear()).slice(-2);
+    return `${day}-${month}-${year}`;
+  };
   useEffect( ()=>{
           async function UserBlogs(){
               try{
+                if(!token){
+                  navigate('/signup')
+                }
                   const response:any = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/bulk`,
                     {
                       headers : {
@@ -23,12 +40,11 @@ function BlogsPage() {
                       }
                     }
                   );
-                  console.log(response);
-                  
+      
                   if(!response){
                       alert("blogs not found")
                   }
-                  const data = response.data.blogs
+                  const data = response.data?.blogs
                   setBlogs(data)
               }catch(error:any){
                   alert(error.response.data.message)
@@ -55,12 +71,22 @@ function BlogsPage() {
                 <hr />
             </div>
             <div className='flex flex-col justify-center gap-3'>
-                 {blogs.map((blog)=> <BlogCard 
+                 {blogs.length > 0 ?( blogs.map((blog)=> <BlogCard
+                                key={blog.id} 
+                                id={blog.id}
                                 title={blog.title}
                                 description={blog.content}
-                                author={blog.author}
-                                date={blog.date}
-                            />)}
+                                author={{name : blog.author.name}}
+                                date={formatDate(blog.published)}
+                            />)) : (
+                              <div>
+                                <BlogSkeleton/>
+                              <BlogSkeleton/>
+                              <BlogSkeleton/>
+                              <BlogSkeleton/>
+                              </div>
+                            )
+                            }
             </div>
         </motion.div>
     </div>

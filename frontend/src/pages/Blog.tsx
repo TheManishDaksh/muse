@@ -12,7 +12,7 @@ function Blog() {
           {/* Featured Image */}
           <div className="w-full h-64 md:h-96 bg-gray-200 relative">
             <img 
-              src="/api/placeholder/1200/600" 
+              src="/poster.webp" 
               alt="Blog featured image" 
               className="w-full h-full object-cover"
             />
