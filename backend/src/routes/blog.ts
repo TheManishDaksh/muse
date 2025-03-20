@@ -48,7 +48,8 @@ blogRouter.post('/',async (c)=>{
         data : {
           title: body.title,
           content: body.content,
-          authorId :authorId
+          authorId :authorId,
+          published : new Date().toISOString()
         }
       })
       const blogId = blog.id
@@ -140,6 +141,7 @@ blogRouter.post('/',async (c)=>{
           title : true,
           content : true,
           id: true,
+          published : true,
           author :{
             select : {
               name : true

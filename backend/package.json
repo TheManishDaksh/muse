@@ -6,11 +6,11 @@
   },
   "dependencies": {
     "@100xdevs/medium-common": "^1.0.0",
-    "@prisma/client": "^6.4.1",
+    "@prisma/client": "^6.5.0",
     "@prisma/extension-accelerate": "^1.2.2",
     "cors": "^2.8.5",
     "hono": "^4.7.4",
-    "prisma": "^6.4.1",
+    "prisma": "^6.5.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
