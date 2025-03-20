@@ -42,8 +42,7 @@ userRouter.post('/signup', async(c)=>{
   }
   const userId = user.id
   const token = await sign( {id : user.id}, c.env.JWT_SECRET)
-  return c.json({token})
-  return c.json({userId})
+  return c.json({token,userId})
   }catch(err){
     c.status(403)
     return c.json({Error : err})
@@ -76,8 +75,7 @@ userRouter.post('/signin', async(c)=>{
     }
     const userId = user.id
     const token = await sign ({id: user.id}, c.env.JWT_SECRET)
-    return c.json({token})
-    return c.json({userId})
+    return c.json({token, userId})
   }catch(e){
     c.status(403)
     return c.json("user not found2")
