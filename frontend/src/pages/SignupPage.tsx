@@ -3,6 +3,7 @@ import axios from "axios"
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input } from '../components';
+import { toast } from 'react-toastify';
 
 function SignupPage() {
   
@@ -12,7 +13,6 @@ function SignupPage() {
   const navigate = useNavigate()
 
   async function handleSignup(event:React.FormEvent){
-    console.log("btn");
     event.preventDefault()
     try{
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signup`,{
@@ -21,22 +21,19 @@ function SignupPage() {
         password
       })
 
-      console.log("data react");
-      
       if(!response){
-        alert("invalid username or password")
+        toast.error("invalid username or password")
       }
       const token = response.data.token
       const userId = response.data.userId
       if(token){
         localStorage.setItem("token",token)
-        console.log(token);
         localStorage.setItem("userId", userId)
-        console.log(userId);
-        navigate('/blogs')
+        toast.success("User Created Successfully");
+        navigate('/blogs');
       }
     }catch(error:any){
-      alert(error?.response?.data?.message || "signup failed try again")
+      toast.error(error?.response?.data?.message || "signup failed try again")
     }
   }
   return(
@@ -85,7 +82,7 @@ function SignupPage() {
             </div>
             
             <button onClick={handleSignup} type='submit'
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors mt-4 font-medium">
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors mt-4 font-medium cursor-pointer">
               Sign Up
             </button>
           </div>

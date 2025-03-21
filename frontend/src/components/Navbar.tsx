@@ -1,4 +1,5 @@
 import React from "react";
+import {toast} from "react-toastify"
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import DrawIcon from '@mui/icons-material/Draw';
@@ -12,7 +13,7 @@ function Navbar() {
       localStorage.clear();
       navigate('/')
     }catch(error:any){
-      alert(error?.response.data.message)
+      toast.error(error?.response.data.message)
     }
   }
   return (

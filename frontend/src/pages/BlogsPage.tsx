@@ -21,17 +21,7 @@ function BlogsPage() {
     }
     published: string;
   }
-   function showToast(){
-    toast.success("Blog loaded successfully!", {
-      position: "top-right",
-      autoClose: 3000, // Closes after 3 sec
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "dark",
-    });
-  }  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -44,7 +34,6 @@ function BlogsPage() {
               try{
                 if(!token){
                   navigate('/signup')
-                  showToast()
                 }
                   const response:any = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/bulk`,
                     {
@@ -53,22 +42,20 @@ function BlogsPage() {
                       }
                     }
                   );
-      
                   if(!response){
-                      alert("blogs not found")
+                      toast.error("blogs not found")
                   }
-                  console.log(response);
-                  
                   const data = response.data?.blogs
-                  setBlogs(data)
+                  setBlogs(data);
+
               }catch(error:any){
-                  alert(error.response.data.message)
+                  toast.error(error.response.data.message)
               }
           }
           UserBlogs();
       },[])
   return (
-    <div className='max-w-full min-h-screen bg-black'
+    <div className='max-w-full min-h-screen '
     style={{
       backgroundImage: "radial-gradient(circle at 0.5px 0.5px, rgba(6, 182, 212, 0.2) 0.5px, transparent 0)",
       backgroundSize: "8px 8px",

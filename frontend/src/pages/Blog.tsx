@@ -3,6 +3,7 @@ import { Navbar } from '../components'
 import { FaCalendarAlt, FaUser } from 'react-icons/fa'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Blog() {
 
@@ -27,20 +28,30 @@ const formatDate = (dateString: string) => {
 };
 useEffect(()=>{
   async function fetchBlog(){
+   try{
     const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/${id}`,{
       headers : {
         Authorization : token
       }
     })
     if(!response.data){
-      alert("can't find blog ")
+      toast.error("can't find blog ")
     }
     setBlog(response.data.blogs[0])  
+  }catch(error:any){
+    toast.error(error?.response?.data.message)
   } 
+   }
   fetchBlog();
 },[])
   return (
-    <div className="w-full min-h-screen bg-black">
+    <div className="w-full min-h-screen bg-black"
+    style={{
+      backgroundImage: "radial-gradient(circle at 0.5px 0.5px, rgba(6, 182, 212, 0.3) 0.5px, transparent 0)",
+      backgroundSize: "8px 8px",
+      backgroundRepeat: "repeat",
+    }}
+    >
       <Navbar />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

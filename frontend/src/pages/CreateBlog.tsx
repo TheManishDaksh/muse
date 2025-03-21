@@ -3,6 +3,7 @@ import { Navbar } from '../components';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function CreateBlog() {
 
@@ -14,8 +15,6 @@ function CreateBlog() {
   async function handleCreatePost(event : React.FormEvent){
     event.preventDefault();
     try{
-      console.log("key clicked");
-      
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/blog`,{
         title,
         content
@@ -24,14 +23,13 @@ function CreateBlog() {
           Authorization : token
         }
       })
-      console.log("blog created");
-      
       if(!response){
-        alert("blog can't created")
+        toast.error("blog can't created")
       }
       navigate(`/yourblogs`)
+      toast.success("blog creted successfully!")
     }catch(error:any){
-    alert(error?.response.data.message)
+    toast.error(error?.response?.data.message)
   }
 }
   return (

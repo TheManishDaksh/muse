@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {motion} from "motion/react"
 import { BlogCard, BlogSkeleton, Navbar } from '../components'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function YourBlogs() {
 
@@ -37,20 +39,26 @@ function YourBlogs() {
                     }
                 });
                 if(!response){
-                    alert("blogs not found")
+                    toast.error("blogs not found")
                 }
-                const data = response?.data?.blogs.filter((blog:Blog)=>blog.authorId == userId)
+                const data = await response?.data?.blogs.filter((blog:Blog)=>blog.authorId == userId)
                 setBlogs(data)
                 const userName = data[1].author.name
                 setUsername(userName)
             }catch(error:any){
-                alert(error.response.data.message)
+                toast.error(error.response.data.message)
             }
         }
         UserBlogs();
     },[])
   return (
-    <div className='w-full min-h-screen'>
+    <div className='w-full min-h-screen'
+    style={{
+        backgroundImage: "radial-gradient(circle at 0.5px 0.5px, rgba(6, 182, 212, 0.2) 0.5px, transparent 0)",
+        backgroundSize: "8px 8px",
+        backgroundRepeat: "repeat",
+      }}
+    >
         <Navbar/>
         <motion.div 
     initial = {{scale : 0}}
@@ -72,11 +80,16 @@ function YourBlogs() {
             />
                 </div> )
             ):(
-                <div>
-                    <BlogSkeleton/>
-                    <BlogSkeleton/>
-                    <BlogSkeleton/>
-                    <BlogSkeleton/>
+                <div className='flex flex-col gap-3 justify-center items-center p-4'>
+                    <div className='text-lg font-bold bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent'>No Blogs Found</div>
+                    <div>
+                    <Link to={'/createblog'}>
+              <button className="gap-2 items-center 'text-violet-100 border-2 border-violet-500 flex  text-center  rounded-2xl w-full bg-gradient-to-r from-red-500 to-blue-500 py-1 px-1 transition-all duration-300 hover:scale-105 cursor-pointer ">
+                <span><img src="/plus.png" alt="createNew" className="w-8" /></span>
+                <span className="hidden md:block">CreateBlog</span>
+                </button>
+                </Link>
+                </div> 
                 </div>
             )}
         </div>

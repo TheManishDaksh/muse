@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Input } from '../components'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 function LoginPage() {
 
@@ -18,18 +19,19 @@ async function handleLogin(event:React.FormEvent){
       password
     })
     if(!response){
-      alert("incorrect credentials")
+      toast.error("incorrect credentials")
     }
     const token = response.data.token
     const userId = response.data.userId
     localStorage.setItem("token", token);
     localStorage.setItem("userId", userId);
     if(!token){
-      alert("can't login")
+      toast.error("can't login")
     }
+    toast.success("User Login Successfully!")
     navigate('/blogs')    
   }catch(error:any){
-    alert(error.response.data.message)
+    toast.error(error.response.data.message)
   }
 }
 
@@ -51,7 +53,7 @@ async function handleLogin(event:React.FormEvent){
           
           <div className="mb-6">
             <span className="text-slate-400">Don't have an account? </span>
-            <Link to="/signup" className="text-blue-400 hover:text-blue-300 transition-colors">
+            <Link to="/signup" className="text-blue-400 hover:text-blue-300 transition-colors cursor-pointer">
               <u>Signup</u>
             </Link>
           </div>
@@ -73,7 +75,7 @@ async function handleLogin(event:React.FormEvent){
             </div>
             
             <button type='submit' onClick={handleLogin}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors mt-4 font-medium">
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors mt-4 font-medium cursor-pointer">
               Login
             </button>
           </div>
