@@ -19,7 +19,8 @@ function HomePage() {
       backgroundSize: "8px 8px",
       backgroundRepeat: "repeat",
     }}
-    >
+    > 
+    {/* Home Page */}
         <div>
           <Navbar/>
         </div>
