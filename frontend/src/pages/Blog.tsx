@@ -14,7 +14,7 @@ function Blog() {
     title: string;
     content: string;
     author : {
-        name : string
+        name : string;
     };
     published: string;
 }
@@ -74,7 +74,7 @@ useEffect(()=>{
               </div>
               <div className="flex items-center">
                 <FaCalendarAlt className="mr-2 text-indigo-600" />
-                <span className="text-sm">{formatDate(blog?.published) || "date"}</span>
+                <span className="text-sm">{blog?.published ? formatDate(blog?.published) : "date"}</span>
               </div>
             </div>
             
