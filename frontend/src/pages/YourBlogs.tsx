@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {motion} from "motion/react"
-import { BlogCard, BlogSkeleton, Navbar } from '../components'
+import { BlogCard, Navbar } from '../components'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 

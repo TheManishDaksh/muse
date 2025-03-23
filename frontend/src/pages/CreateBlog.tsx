@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Navbar } from '../components';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
